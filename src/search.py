@@ -6,6 +6,7 @@ from langchain_community.embeddings import OllamaEmbeddings
 from langchain_openai import OpenAIEmbeddings
 from langchain.chat_models import init_chat_model
 from langchain.prompts import PromptTemplate
+from langchain_core.runnables import chain
 
 
 load_dotenv()
@@ -48,7 +49,9 @@ RESPONDA A "PERGUNTA DO USUÁRIO"
 """
 
 
-def _get_context(question):
+@chain
+def _get_context(question_dict: dict) -> str:
+    question = question_dict["pergunta"]
     if USE_OLLAMA:
         embeddings = OllamaEmbeddings(
             model=OLLAMA_MODEL_NAME,
@@ -67,11 +70,12 @@ def _get_context(question):
     results = store.similarity_search_with_score(question, k=10)
 
     context = "\n".join([doc.page_content for doc, _ in results])
-    return context
+    return {"contexto": context, "pergunta": question}
 
 
 def search_prompt(question=None):
-    context = _get_context(question)
+    if question is None:
+        return
 
     question_template = PromptTemplate(
       input_variables=["contexto", "pergunta"],
@@ -80,14 +84,11 @@ def search_prompt(question=None):
 
     gemini = init_chat_model(model="gemini-2.5-flash", model_provider="google_genai")
 
-    chain = question_template | gemini
-    response = chain.invoke(
-            {
-                "contexto": context,
-                "pergunta": question,
-            }
-        )
+    chain = _get_context | question_template | gemini
+
+    response = chain.invoke({"pergunta": question})
     return response.content
 
+# used for tests
 if __name__ == "__main__":
     search_prompt("Qual o faturamento da Empresa SuperTechIABrazil?")
