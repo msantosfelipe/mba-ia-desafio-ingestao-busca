@@ -13,7 +13,8 @@ Descreva abaixo como executar a sua solução.
 ## Criar arquivo .env
 - Executar `cp .env.example .env`
 - Preencher variáveis GOOGLE_API_KEY e OPENAI_API_KEY, as outras devem ser alteradas de acordo com preferência de execução.
-    - Foram adicionadas as variáveis USE_OLLAMA, OLLAMA_BASE_URL e OLLAMA_MODEL_NAME, para execução do embedding localmente no caso de problemas de quota na OPENAI
+    - Foram adicionadas as variáveis USE_OLLAMA, OLLAMA_BASE_URL e OLLAMA_MODEL_NAME, para execução do embedding localmente usando Ollama no caso de problemas de quota na OPENAI
+    - No caso de uso do ollama, usar o modelo nomic-embed-text rodando `ollama pull nomic-embed-text`
 
 ## Iniciando docker
 - Executar `docker compose up -d`
