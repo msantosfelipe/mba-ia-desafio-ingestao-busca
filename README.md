@@ -21,6 +21,17 @@ Descreva abaixo como executar a sua solução.
 
 
 # Executando o projeto
-## Inserindo dados do PDF
+## 1. Inserindo dados do PDF
 - Executar `python src/ingest.py`
     - Lê o pdf `document.pdf`, separa em chunks e salva vetorizado no banco
+
+## 2. Iniciando chat
+- Executar `python src/chat.py`
+    - Irá iniciar um chat no terminal para fazer as perguntas referentes aos dados no arquivo `document.pdf`
+    - Exemplos de perguntas:
+        - Qual o faturamento da Empresa SuperTechIABrazil?
+        - Qual o faturamento da Empresa Brava Biotech Holding?
+    - Exemplo de pergunta fora do contexto (o chat deve retornar que não consegue responder):
+        - Quantos clientes temos em 2024?
+
+![Example chat running](<example_chat.png>)

@@ -88,7 +88,3 @@ def search_prompt(question=None):
 
     response = chain.invoke({"pergunta": question})
     return response.content
-
-# used for tests
-if __name__ == "__main__":
-    search_prompt("Qual o faturamento da Empresa SuperTechIABrazil?")

@@ -1,11 +1,13 @@
-# Perguntas de exemplo:
-# Qual o faturamento da Empresa SuperTechIABrazil?
-# Qual o faturamento da Empresa Brava Biotech Holding?
-
-# Pergunta fora de contexto:
-# Quantos clientes temos em 2024?
-
 from search import search_prompt
+import warnings
+
+
+# Ignore deprecation warnings from OllamaEmbeddings
+warnings.filterwarnings(
+    "ignore",
+    message=".*OllamaEmbeddings.*deprecated.*"
+)
+
 
 def main():
     print('🤖: Bem vindo ao ChatBot do Faturamento! Faça sua pergunta. Digite "sair" para encerrar.')

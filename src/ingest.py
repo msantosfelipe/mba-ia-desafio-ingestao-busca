@@ -1,4 +1,5 @@
 import os
+import warnings
 from dotenv import load_dotenv
 
 from langchain_community.document_loaders import PyPDFLoader
@@ -9,7 +10,14 @@ from langchain_community.embeddings.openai import OpenAIEmbeddings
 from langchain_postgres import PGVector
 
 
+# Ignore deprecation warnings from OllamaEmbeddings
+warnings.filterwarnings(
+    "ignore",
+    message=".*OllamaEmbeddings.*deprecated.*"
+)
+
 load_dotenv()
+
 
 SPLIT_PDF_CHUNK_SIZE = 1000
 SPLIT_PDF_CHUNK_OVERLAP = 200
